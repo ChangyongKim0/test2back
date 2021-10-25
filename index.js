@@ -38,7 +38,7 @@ app.put("/api/cookie", (req, res) => {
       console.log("cookie data already created.");
     }
     const cookie_data = JSON.parse(fs.readFileSync(file_name));
-    res.send(cookie_data);
+    res.send({ id: cookie_data.id, data: cookie_data.data });
     console.log("cookie data loaded.");
   });
 });
@@ -67,9 +67,9 @@ app.patch("/api/cookie", (req, res) => {
   });
   Object.keys(setting).map((key) => {
     if (Array.isArray(cookie_data[key])) {
-      cookie_data[key].push(data[key]);
+      cookie_data[key].push(setting[key]);
     } else {
-      cookie_data[key] = data[key];
+      cookie_data[key] = setting[key];
     }
   });
   fs.writeFileSync(file_name, JSON.stringify(cookie_data, null, "  "));
