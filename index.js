@@ -1,9 +1,9 @@
-const fs = require("fs");
-
 var bodyParser = require("body-parser");
 var express = require("express");
 var mysql = require("mysql");
-const { constants } = require("buffer");
+const handleCookieData = require("./functions/handleCookieData");
+const getBldgInfoData = require("./functions/getBldgInfoData");
+const getMapInfoData = require("./functions/getMapInfoData");
 const mysql_option = {
   host: "localhost",
   user: "server",
@@ -24,58 +24,13 @@ app.get("/api", function (req, res) {
   console.log("CTA button is clicked!");
 });
 
-app.put("/api/cookie", (req, res) => {
-  let id = req.body.id;
-  const file_name = "data/cookie_data/" + id + ".json";
-  fs.access(file_name, constants.F_OK, (err) => {
-    if (err) {
-      fs.writeFileSync(
-        file_name,
-        JSON.stringify({ id: id, data: {}, history: [] }, null, "  ")
-      );
-      console.log("cookie data created.");
-    } else {
-      console.log("cookie data already created.");
-    }
-    const cookie_data = JSON.parse(fs.readFileSync(file_name));
-    res.send({ id: cookie_data.id, data: cookie_data.data });
-    console.log("cookie data loaded.");
-  });
-});
+app.put("/api/cookie", handleCookieData("put"));
 
-app.patch("/api/cookie", (req, res) => {
-  let id = req.body.id;
-  let data = req.body.data || {};
-  let setting = req.body.setting || {};
-  const file_name = "data/cookie_data/" + id + ".json";
-  fs.access(file_name, constants.F_OK, (err) => {
-    if (err) {
-      fs.writeFileSync(
-        file_name,
-        JSON.stringify({ id: id, data: {}, history: [] }, null, "  ")
-      );
-      console.log("cookie data created.");
-    }
-  });
-  let cookie_data = JSON.parse(fs.readFileSync(file_name));
-  Object.keys(data).map((key) => {
-    if (Array.isArray(cookie_data.data[key])) {
-      cookie_data.data[key].push(data[key]);
-    } else {
-      cookie_data.data[key] = data[key];
-    }
-  });
-  Object.keys(setting).map((key) => {
-    if (Array.isArray(cookie_data[key])) {
-      cookie_data[key].push(setting[key]);
-    } else {
-      cookie_data[key] = setting[key];
-    }
-  });
-  fs.writeFileSync(file_name, JSON.stringify(cookie_data, null, "  "));
-  console.log("cookie data patched.");
-  res.end();
-});
+app.patch("/api/cookie", handleCookieData("patch"));
+
+app.put("/api/bldgInfo", getBldgInfoData);
+
+app.put("/api/mapInfo", getMapInfoData);
 
 app.put("/api/login", function (req, res) {
   console.log(req.body.id);
