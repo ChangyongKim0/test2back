@@ -768,10 +768,10 @@ const _compareFloor = (a, b) => {
     if (b == _rooftop_name) {
       return 0;
     } else {
-      return -1;
+      return 1;
     }
   } else if (b == _rooftop_name) {
-    return 1;
+    return -1;
   } else {
     return a - b;
   }
