@@ -1,5 +1,7 @@
 const fs = require("fs");
 const convertBldgApiData = require("./convertBldgApiData");
+const convertLandApiData = require("./convertLandApiData");
+const convertTrApiData = require("./convertTrApiData");
 const sigungu_code = JSON.parse(
   fs.readFileSync(
     "/home/server/workspace/python/background_algorithms/configs/sigungu_code.json"
@@ -26,6 +28,10 @@ const convertData = (type, data) => {
   switch (type) {
     case "bldg":
       return [true, convertBldgApiData(data)];
+    case "land":
+      return [true, convertLandApiData(data)];
+    case "tr":
+      return [true, convertTrApiData(data)];
     default:
   }
 };
@@ -45,7 +51,10 @@ const getBldgInfoData = (req, res) => {
   console.log(req.body.id);
   const lng_code = req.body.latlng.slice(0, 5);
   const lat_code = req.body.latlng.slice(5);
-  const land_data = loadDistributedData("land", id, lng_code, lat_code);
+  const [_, land_data] = convertData(
+    "land",
+    loadDistributedData("land", id, lng_code, lat_code)
+  );
   //   const bldg_data = loadDistributedData("bldg", id, lng_code, lat_code);
   const [bldg_exists, bldg_data] = convertData(
     "bldg",
