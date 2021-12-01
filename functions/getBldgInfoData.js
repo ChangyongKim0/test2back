@@ -60,7 +60,10 @@ const getBldgInfoData = (req, res) => {
     "bldg",
     loadDistributedData("bldg", id, lng_code, lat_code)
   );
-  const tr_data = loadDistributedData("transaction", id, lng_code, lat_code);
+  const [tr_exists, tr_data] = convertData(
+    "tr",
+    loadDistributedData("transaction", id, lng_code, lat_code)
+  );
   //   console.log(land_data);
   //   console.log(bldg_data);
   //   console.log(tr_data);
@@ -71,7 +74,7 @@ const getBldgInfoData = (req, res) => {
     bldg: bldg_data,
     transaction: tr_data,
     bldg_exists: bldg_exists,
-    transaction_exists: false,
+    transaction_exists: tr_exists,
   });
 };
 
