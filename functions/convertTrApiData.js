@@ -3,7 +3,8 @@ const convertTrApiData = (data) => {
     return {};
   } else {
     const recent = data.transaction_list[0];
-    const price = parseInt(recent.NRG_DL_AM.replace(",", "")) * 10000;
+    // console.log(recent.NRG_DL_AM);
+    const price = parseInt(recent.NRG_DL_AM.replace(/,/g, "")) * 10000;
     const price_per_area = price / parseFloat(recent.NRG_AR);
     return {
       price: price,
