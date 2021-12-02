@@ -4,6 +4,7 @@ var mysql = require("mysql");
 const handleCookieData = require("./functions/handleCookieData");
 const getBldgInfoData = require("./functions/getBldgInfoData");
 const getMapInfoData = require("./functions/getMapInfoData");
+const getExcelFile = require("./functions/getExcelFile");
 const mysql_option = {
   host: "localhost",
   user: "server",
@@ -31,6 +32,8 @@ app.patch("/api/cookie", handleCookieData("patch"));
 app.put("/api/bldgInfo", getBldgInfoData);
 
 app.put("/api/mapInfo", getMapInfoData);
+
+app.get("/api/downloadExcel", getExcelFile);
 
 app.put("/api/login", function (req, res) {
   console.log(req.body.id);
