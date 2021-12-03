@@ -29,6 +29,10 @@ app.put("/api/cookie", handleCookieData("put"));
 
 app.patch("/api/cookie", handleCookieData("patch"));
 
+app.patch("/api/cookie/add", handleCookieData("add"));
+
+app.patch("/api/cookie/delete", handleCookieData("delete"));
+
 app.put("/api/bldgInfo", getBldgInfoData);
 
 app.put("/api/mapInfo", getMapInfoData);
