@@ -27,11 +27,11 @@ const convertData = (type, data) => {
   }
   switch (type) {
     case "bldg":
-      return [true, convertBldgApiData(data)];
+      return convertBldgApiData(data);
     case "land":
-      return [true, convertLandApiData(data)];
+      return convertLandApiData(data);
     case "tr":
-      return [true, convertTrApiData(data)];
+      return convertTrApiData(data);
     default:
   }
 };
