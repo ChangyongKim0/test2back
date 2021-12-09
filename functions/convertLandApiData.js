@@ -1,6 +1,6 @@
 const convertLandApiData = (data) => {
   let usage_list = [];
-  data.LNSD_PRP_DSTRC_NM
+  data.LNSD_PRP_DSTRC_NM && typeof data.LNSD_PRP_DSTRC_NM != typeof {}
     ? data.LNSD_PRP_DSTRC_NM.split(",").map((e) => {
         usage_list.push(e.replace(/^ /g, "").replace(/ $/g, ""));
       })
