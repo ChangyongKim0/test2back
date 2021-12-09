@@ -846,7 +846,7 @@ const convertBldgApiData = (data) => {
       area: 0,
     };
   });
-  return input;
+  return [data.bldg_list.length != 0, input];
 };
 
 const _getAddrFromPnu = (pnu) => {
