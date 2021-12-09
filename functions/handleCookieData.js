@@ -71,6 +71,7 @@ const _deleteCookieData = (req, res) => {
   let id = req.body.id;
   let data = req.body.data || {};
   let setting = req.body.setting || {};
+  // console.log(id, data, setting);
   const file_name = "data/cookie_data/" + id + ".json";
   fs.access(file_name, constants.F_OK, (err) => {
     if (err) {
@@ -84,12 +85,16 @@ const _deleteCookieData = (req, res) => {
   let cookie_data = JSON.parse(fs.readFileSync(file_name));
   Object.keys(data).map((key) => {
     if (cookie_data.data[key] != undefined) {
-      cookie_data.data[key].filter((e) => e.id != data[key]);
+      cookie_data.data[key] = cookie_data.data[key].filter(
+        (e) => e.id != data[key]
+      );
     }
   });
   Object.keys(setting).map((key) => {
     if (cookie_data.setting[key] != undefined) {
-      cookie_data.setting[key].filter((e) => e.id != setting[key]);
+      cookie_data.setting[key] = cookie_data.setting[key].filter(
+        (e) => e.id != setting[key]
+      );
     }
   });
   fs.writeFileSync(file_name, JSON.stringify(cookie_data, null, "  "));
