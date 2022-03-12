@@ -23,7 +23,7 @@ const getMapInfoData = (req, res) => {
         lat_code++
       ) {
         const file_name =
-          "/home/server/workspace/python/background_algorithms/data/map_data/" +
+          "/home/CY/Database/background_algorithms/data/map_data/" +
           lng_code +
           "/" +
           lat_code +

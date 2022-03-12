@@ -1,15 +1,16 @@
 const fs = require("fs");
+const { DATABASE_PATH } = require("../../../shortcut");
 const convertBldgApiData = require("./convertBldgApiData");
 const convertLandApiData = require("./convertLandApiData");
 const convertTrApiData = require("./convertTrApiData");
 const sigungu_code = JSON.parse(
   fs.readFileSync(
-    "/home/server/workspace/python/background_algorithms/configs/sigungu_code.json"
+    DATABASE_PATH + "configs/sigungu_code.json"
   )
 );
 
 const loadDistributedData = (type, id, lng_code, lat_code) => {
-  const data_path = "/home/server/workspace/python/background_algorithms/data/";
+  const data_path = DATABASE_PATH + "data/";
   const file_path =
     data_path + type + "_data/dist/" + lng_code + "/" + lat_code + ".json";
   let data = {};

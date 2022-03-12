@@ -2,7 +2,7 @@ const fs = require("fs");
 
 const sigungu_code = JSON.parse(
   fs.readFileSync(
-    "/home/server/workspace/python/background_algorithms/configs/sigungu_code.json"
+    "/home/CY/Database/background_algorithms/configs/sigungu_code.json"
   )
 );
 

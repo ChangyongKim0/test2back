@@ -2,6 +2,7 @@ const fs = require("fs");
 const { constants } = require("buffer");
 const xlsx = require("xlsx");
 const exceljs = require("exceljs");
+const { BACKEND_PATH } = require("../../../shortcut");
 
 const readAllCells = (worksheet, save = false, file_name) => {
   const sheetData = [];
@@ -47,9 +48,9 @@ const rewriteExcelFile = (file_name, new_file_name, callback) => {
 
 const getExcelFile = (req, res) => {
   const file_name =
-    "/home/server/workspace/node_js/test2back/data/excel_format/sample.xlsx";
+    BACKEND_PATH + "data/excel_format/sample.xlsx";
   const new_file_name =
-    "/home/server/workspace/node_js/test2back/data/excel_format/sample_output.xlsx";
+    BACKEND_PATH + "data/excel_format/sample_output.xlsx";
   rewriteExcelFile(file_name, new_file_name, () => {
     const base_file_data = fs.readFileSync(new_file_name);
     res.send(base_file_data);
