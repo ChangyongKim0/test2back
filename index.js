@@ -6,6 +6,7 @@ const handleCookieData = require("./functions/handleCookieData");
 const getBldgInfoData = require("./functions/getBldgInfoData");
 const getMapInfoData = require("./functions/getMapInfoData");
 const getExcelFile = require("./functions/getExcelFile");
+const axios = require("axios");
 const mysql_option = {
   host: "localhost",
   user: "server",
@@ -44,6 +45,40 @@ app.get("/api", function (req, res) {
   res.send("Hello World!");
   console.log("CTA button is clicked!");
 });
+
+const _h = (url) => {
+  axios.get(url).then((res) => {
+    console.log(res)
+  }).catch(res => {
+    console.log(res);
+  })
+  return handleCookieData("put");
+}
+
+app.put("/api/urlInfo", (req, res) => {
+  axios.get(req.body.url).then((url_res) => {
+    console.log("successfully get url data");
+    const data = {};
+    for (output in url_res){
+            console.log("노드 값: "+JSON.stringify(output));
+            data[output] = url_res[output]
+            // output == "data"? "": console.log(url_res[output]);
+    }
+    res.send({
+      // "status": url_res.status,
+      // "statusText": url_res.statusText,
+      // "headers0": url_res.headers,
+      // "config": url_res.config,
+      // "request": url_res.request,
+      "data": url_res.data,
+    });
+  })
+  // .catch(err => {
+  //   console.log("error occured while getting url data");
+  //   console.log(err);
+  //   res.send({"err": err});
+  // });
+})
 
 app.put("/api/cookie", handleCookieData("put"));
 

@@ -23,6 +23,7 @@ const convertLandApiData = (data) => {
         parseFloat(data.LNPD_PY4),
       ],
       usage_list: new_usage_list,
+      pos_list: data.LND_SHAPE,
     },
   ];
 };
